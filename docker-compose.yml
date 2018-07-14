@@ -1,0 +1,26 @@
+version: "3"
+services:
+  db:
+    image: postgres:10
+
+  pgadmin:
+    image: dpage/pgadmin4
+    env_file:
+      - pgadmin.env
+    depends_on:
+      - db
+    ports:
+      - "${pgadmin_port}:80"
+
+  # your go development workspace
+  dev:
+    # docker exec -t -i workspace /bin/bash
+    # or docker-compose run dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        WORKSPACE_DIR: ${WORKSPACE_DIR}
+    volumes:
+      # map ./ in your host to /go/src/ in the container
+      - ".:/go/src/${WORKSPACE_DIR}"
