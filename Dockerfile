@@ -1,10 +1,16 @@
 # Do not run or build this Dockerfile directly. See service dev in docker-compose.yml
-FROM golang:1.10-alpine3.8
+FROM golang:1.10
 
-ARG WORKSPACE_DIR
+ARG DEV_EXPOSE_PORT
+ARG DEV_EXPOSE_PORT_FE
+ARG DEV_WORKSPACE
 
-RUN apk add make
-RUN apk add git
+ENV LANG C.UTF-8
+
 RUN go get -u github.com/golang/dep/cmd/dep
+RUN curl https://getcaddy.com | bash -s personal
 
-WORKDIR $GOPATH/src/${WORKSPACE_DIR}
+WORKDIR $GOPATH/src/$DEV_WORKSPACE
+
+EXPOSE $DEV_EXPOSE_PORT
+EXPOSE $DEV_EXPOSE_PORT_FE

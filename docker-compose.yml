@@ -20,7 +20,14 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        WORKSPACE_DIR: ${WORKSPACE_DIR}
+        # these 2 have to be args instead of normal env vars
+        # or won't work during build
+        DEV_EXPOSE_PORT: $DEV_EXPOSE_PORT
+        DEV_EXPOSE_PORT_FE: $DEV_EXPOSE_PORT_FE
+        DEV_WORKSPACE: $DEV_WORKSPACE
     volumes:
       # map ./ in your host to /go/src/ in the container
-      - ".:/go/src/${WORKSPACE_DIR}"
+      - ".:/go/src/$DEV_WORKSPACE"
+    ports:
+      - $DEV_HOST_PORT:$DEV_EXPOSE_PORT
+      - $DEV_HOST_PORT_FE:$DEV_EXPOSE_PORT_FE

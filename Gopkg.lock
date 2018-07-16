@@ -18,19 +18,55 @@
   version = "v1.6.2"
 
 [[projects]]
-  digest = "1:40e195917a951a8bf867cd05de2a46aaf1806c50cf92eebf4c16f78cd196f747"
-  name = "github.com/pkg/errors"
-  packages = ["."]
+  branch = "master"
+  digest = "1:14c211fa7f74d92bd780f86e7af807b45d1e2053567b4f01a1ad9b332900566c"
+  name = "github.com/graph-gophers/graphql-go"
+  packages = [
+    ".",
+    "errors",
+    "internal/common",
+    "internal/exec",
+    "internal/exec/packer",
+    "internal/exec/resolvable",
+    "internal/exec/selected",
+    "internal/query",
+    "internal/schema",
+    "internal/validation",
+    "introspection",
+    "log",
+    "relay",
+    "trace",
+  ]
   pruneopts = "UT"
-  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
-  version = "v0.8.0"
+  revision = "bb9738501bd42a6536227b96068349b814379d6e"
+
+[[projects]]
+  digest = "1:27af6024faa3c28426a698b8c653be0fd908bc96e25b7d76f2192eb342427db6"
+  name = "github.com/opentracing/opentracing-go"
+  packages = [
+    ".",
+    "ext",
+    "log",
+  ]
+  pruneopts = "UT"
+  revision = "1949ddbfd147afd4d964a9f00b24eb291e0e7c38"
+  version = "v1.0.2"
+
+[[projects]]
+  branch = "master"
+  digest = "1:76ee51c3f468493aff39dbacc401e8831fbb765104cbf613b89bef01cf4bad70"
+  name = "golang.org/x/net"
+  packages = ["context"]
+  pruneopts = "UT"
+  revision = "d0887baf81f4598189d4e12a37c6da86f0bba4d0"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
     "github.com/gorilla/mux",
-    "github.com/pkg/errors",
+    "github.com/graph-gophers/graphql-go",
+    "github.com/graph-gophers/graphql-go/relay",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

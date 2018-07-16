@@ -1,0 +1,16 @@
+schema {
+    query: Query
+}
+
+type Query {
+    chart1: Chart1
+}
+
+type Chart1 {
+    points: [Point!]!
+}
+
+type Point {
+    a: String!
+    b: Int!
+}
