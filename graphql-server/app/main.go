@@ -7,45 +7,22 @@ import (
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
 	"io/ioutil"
+	g "github.com/CreatCodeBuild/go-tutorials/graphql-server/app/graphql"
 )
 
-type query struct{}
 
-
-func (_ *query) Chart1() *Chart1 { return &Chart1{} }
-
-type Chart1 struct {}
-
-func (m Chart1) Points() []*Point {
-	return []*Point{
-		{a: "C", b: 2},
-		{a: "C", b: 7},
-		{a: "C", b: 4},
-		{a: "D", b: 1},
-		{a: "D", b: 3},
-	}
-}
-
-type Point struct {
-	a string
-	b int32
-}
-
-func (p *Point) A() string {return p.a}
-func (p *Point) B() int32 {return p.b}
 
 func main() {
 	router := mux.NewRouter()
 
 
 	// read graphql schema
-
-	b, err := ioutil.ReadFile("app/schema.graphql")
+	b, err := ioutil.ReadFile("app/graphql/schema.graphql")
 	if err != nil {
 		panic(err)
 	}
 
-	schema := graphql.MustParseSchema(string(b), &query{})
+	schema := graphql.MustParseSchema(string(b), &g.Query{})
 
 	router.Use(func(handler http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

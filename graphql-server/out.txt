@@ -1,0 +1,5 @@
+app/main.go:10:2: cannot find package "github.com/CreatCodeBuild/go-tutorials/graphql-server/app/graphql" in any of:
+	/go/src/github.com/CreateCodeBuild/go-tutorials/graphql-server/vendor/github.com/CreatCodeBuild/go-tutorials/graphql-server/app/graphql (vendor tree)
+	/usr/local/go/src/github.com/CreatCodeBuild/go-tutorials/graphql-server/app/graphql (from $GOROOT)
+	/go/src/github.com/CreatCodeBuild/go-tutorials/graphql-server/app/graphql (from $GOPATH)
+make: *** [run] Error 1

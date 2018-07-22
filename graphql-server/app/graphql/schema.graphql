@@ -1,0 +1,47 @@
+schema {
+    query: Query
+}
+
+type Query {
+    chart1: Chart1
+    buttonClickChart(timeRange: String): ButtonClickChart
+}
+
+##########
+# Chart1 #
+##########
+type Chart1 {
+    points: [Point!]!
+}
+
+type Point {
+    a: String!
+    b: Int!
+}
+
+####################
+# ButtonClickChart #
+####################
+type ButtonClickChart {
+    buttonClickCounts: [ButtonClickCounts!]!
+    timeRange: TimeRange!
+}
+
+type ButtonClickCounts {
+    buttonName: String!
+    count: Int!
+}
+
+# A ButtonClick records the time when a button is clicked.
+type ButtonClick {
+    buttonName: String!
+    time: String!
+}
+
+##########
+# Common #
+##########
+type TimeRange {
+    start: String  # unix time stamp
+    end: String
+}

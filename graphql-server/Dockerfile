@@ -1,4 +1,5 @@
 # Do not run or build this Dockerfile directly. See service dev in docker-compose.yml
+# todo change to alphine
 FROM golang:1.10
 
 ARG DEV_EXPOSE_PORT
