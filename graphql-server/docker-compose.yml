@@ -1,16 +1,27 @@
 version: "3"
 services:
-  db:
-    image: postgres:10
+#  db:
+#    image: postgres:10
+#
+#  pgadmin:
+#    image: dpage/pgadmin4
+#    env_file:
+#      - pgadmin.env
+#    depends_on:
+#      - db
+#    ports:
+#      - "${pgadmin_port}:80"
 
-  pgadmin:
-    image: dpage/pgadmin4
-    env_file:
-      - pgadmin.env
-    depends_on:
-      - db
+  dgraph:
+    image: dgraph/dgraph:latest
+
+  db:
+    image: neo4j:latest
+    environment:
+      NEO4J_AUTH: "none"
     ports:
-      - "${pgadmin_port}:80"
+      - "$neo4j_http:7474"
+      - "$neo4j_bolt:7687"
 
   # your go development workspace
   dev:
