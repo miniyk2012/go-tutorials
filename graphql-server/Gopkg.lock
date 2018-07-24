@@ -2,6 +2,26 @@
 
 
 [[projects]]
+  branch = "master"
+  digest = "1:2a19cbedb766a8bac2faead95752a8eae84b017b0a6b575f7822a0d971f24bbf"
+  name = "github.com/dgraph-io/dgo"
+  packages = [
+    ".",
+    "protos/api",
+    "y",
+  ]
+  pruneopts = "UT"
+  revision = "71e4b7ed50eac8be08c25ff502be0701480f65d0"
+
+[[projects]]
+  digest = "1:bbadccf3d3317ea03c0dac0b45b673b4b397c8f91a1d2eff550a3c51c4ad770e"
+  name = "github.com/gogo/protobuf"
+  packages = ["proto"]
+  pruneopts = "UT"
+  revision = "636bf0302bc95575d69441b25a2603156ffdddf1"
+  version = "v1.1.1"
+
+[[projects]]
   digest = "1:cb22af0ed7c72d495d8be1106233ee553898950f15fd3f5404406d44c2e86888"
   name = "github.com/golang/protobuf"
   packages = [
@@ -67,8 +87,16 @@
   version = "v1.0.2"
 
 [[projects]]
+  digest = "1:40e195917a951a8bf867cd05de2a46aaf1806c50cf92eebf4c16f78cd196f747"
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
+  version = "v0.8.0"
+
+[[projects]]
   branch = "master"
-  digest = "1:2ecf3b54e00300787e7499605a787d616b2b22fda16fa8a125c692aa2c6962c2"
+  digest = "1:82f1b0582a936c1e93d076223aa44146cbfc9af4d8e8e8ba0cedd25d2f40398d"
   name = "golang.org/x/net"
   packages = [
     "context",
@@ -80,7 +108,7 @@
     "trace",
   ]
   pruneopts = "UT"
-  revision = "d0887baf81f4598189d4e12a37c6da86f0bba4d0"
+  revision = "a680a1efc54dd51c040b3b5ce4939ea3cf2ea0d1"
 
 [[projects]]
   digest = "1:7509ba4347d1f8de6ae9be8818b0cd1abc3deeffe28aeaf4be6d4b6b5178d9ca"
@@ -151,6 +179,7 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/dgraph-io/dgo",
     "github.com/gorilla/mux",
     "github.com/graph-gophers/graphql-go",
     "github.com/graph-gophers/graphql-go/relay",
