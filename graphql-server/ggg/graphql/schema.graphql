@@ -1,0 +1,18 @@
+schema {
+    query: Query
+}
+
+type Query {
+    getMovies: [Movie!]!
+    addMovies(uid: String!, title: String!): [Movie!]!
+    signup(uid: String!, authorizedActions: [String!]!): User!
+}
+
+type Movie {
+    name: String!
+}
+
+type User {
+    uid: String!
+    authorizedActions: [String!]!
+}

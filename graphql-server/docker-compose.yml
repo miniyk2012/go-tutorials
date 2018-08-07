@@ -1,16 +1,5 @@
 version: "3"
 services:
-#  db:
-#    image: postgres:10
-#
-#  pgadmin:
-#    image: dpage/pgadmin4
-#    env_file:
-#      - pgadmin.env
-#    depends_on:
-#      - db
-#    ports:
-#      - "${pgadmin_port}:80"
 
   dgraph:
     image: dgraph/dgraph:latest

@@ -48,3 +48,11 @@
 [[constraint]]
   branch = "master"
   name = "github.com/dgraph-io/dgo"
+
+[[constraint]]
+  name = "github.com/stretchr/testify"
+  version = "1.2.2"
+
+[[constraint]]
+  name = "github.com/dgraph-io/badger"
+  version = "1.5.3"
