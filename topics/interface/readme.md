@@ -15,6 +15,14 @@ func (i Int) Do() {}
 ```
 You don't need to declare `type Int implements Something` like the way you will do in Java. This makes interface in Go less verbose and gives a dynamic language feeling. But this is not the key point.
 
+You can also define unexported method in an interface,
+```go
+type Something interface {
+  do()
+}
+``
+although this is not useful.
+
 ## There are 3 important applications of this feature.
 __0. Interfaces with same methods are the same interface.__
 ```
