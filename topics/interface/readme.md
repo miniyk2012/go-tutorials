@@ -29,3 +29,7 @@ Now, let's dive deep into it.
 [Syntax Sugar](syntax.md)  
 [The Empty Interface `interface{}`](interface{}.md)  
  
+### Other Read:
+If you want to understand evaluation of interfaces, read [The Laws of Reflection](https://blog.golang.org/laws-of-reflection)
+
+[How To Use Go Interfaces](https://blog.chewxy.com/2018/03/18/golang-interfaces/)
