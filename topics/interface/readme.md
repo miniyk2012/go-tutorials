@@ -27,5 +27,5 @@ Now, let's dive deep into it.
 
 [The Basics](basics.md)  
 [Syntax Sugar](syntax.md)  
-[The Empty Interface `interface{}`](interface{}.go)  
+[The Empty Interface `interface{}`](interface{}.md)  
  
