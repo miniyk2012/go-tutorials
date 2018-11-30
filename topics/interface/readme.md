@@ -20,7 +20,7 @@ You can also define unexported method in an interface,
 type Something interface {
   do()
 }
-``
+```
 although this is not useful.
 
 ## There are 3 important applications of this feature.
