@@ -107,3 +107,24 @@ errors.Cause(&my.Error{}) // returns nil
 Well, it's up to you of defining the semantics of a causation of an error. What I want to show you is that, you can write code which utilize private interfaces of other packages and extend their capability without having to couple your code with their source code. 
 
 We haven't mentioned `pkg/errors` in our `my` package at all. This is powerful.
+
+__2. Developers of different pacakges can work on the same interfaces without knowing each other__
+Combining number 0 and 1, this is one of the most useful consequence of Go interface.
+
+For example, let's say a networking package `A` defines a
+```go
+type Sender interface {
+  Send() (done bool, err error)
+}
+```
+Another network pacakge `B` may define the same `Sender` in their own source code. They don't need to mention each other at all. As long as their interfaces preserve similar semantics, as a user, we can define our own type implementing a `Sender` and be compatible with both libraries.
+
+From the opposite perspective, if we are the definer of an interface, let' say we have a function
+```go
+type A interface {
+  Method()
+}
+
+func F(a A) {}
+```
+We can use any third party libraries whose types implemnts `Method()`, these libraries' authors don't need to know us first. We also don't need to couple `F` with concrete types in their libraries.
