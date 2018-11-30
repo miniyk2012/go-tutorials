@@ -72,6 +72,7 @@ func F(...) {
 ```
 Here we defined an interface locally in the scope of this function. You might think this is absolutely crazy. But, let look at an example from the famous [pkg/errors](https://github.com/pkg/errors/blob/2233dee583dcf88f3c8b22cb7a33f05a499800d8/errors.go#L269-L282)
 ```go
+// pkg/errors/errors.go
 func Cause(err error) error {
 	type causer interface {
 		Cause() error
@@ -87,3 +88,22 @@ func Cause(err error) error {
 	return err
 }
 ```
+How can we make of this function local interface? Let's define an error type
+```go
+pacakge my
+
+type Error struct{}
+
+func (e *Error) Error() string { return "" }
+func (e *Error) Cause() error { return nil }
+```
+Now, you can do
+```go
+import "pkg/errors"
+import "my"
+
+errors.Cause(&my.Error{}) // returns nil
+```
+Well, it's up to you of defining the semantics of a causation of an error. What I want to show you is that, you can write code which utilize private interfaces of other packages and extend their capability without having to couple your code with their source code. 
+
+We haven't mentioned `pkg/errors` in our `my` package at all. This is powerful.
