@@ -90,7 +90,7 @@ func Cause(err error) error {
 ```
 How can we make of this function local interface? Let's define an error type
 ```go
-pacakge my
+package my
 
 type Error struct{}
 
