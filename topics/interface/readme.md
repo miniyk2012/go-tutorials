@@ -57,3 +57,33 @@ type B struct{}
 func (b B) Method() {}
 ```
 Then you can pass any instance of B to functions which accept `unexportedInterface` as an argument.
+
+This is very powerful, combining number 0, because it enables you to extend the functionality of your program without source level coupling. We will see an example later.
+
+#### Function local interface
+```go
+func F(...) {
+  ...
+  type X interface {
+    Method()
+  }
+  ...
+}
+```
+Here we defined an interface locally in the scope of this function. You might think this is absolutely crazy. But, let look at an example from the famous [pkg/errors](https://github.com/pkg/errors/blob/2233dee583dcf88f3c8b22cb7a33f05a499800d8/errors.go#L269-L282)
+```go
+func Cause(err error) error {
+	type causer interface {
+		Cause() error
+	}
+
+	for err != nil {
+		cause, ok := err.(causer)
+		if !ok {
+			break
+		}
+		err = cause.Cause()
+	}
+	return err
+}
+```
