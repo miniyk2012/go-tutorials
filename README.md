@@ -14,3 +14,9 @@ If you have any of these goals, then Go could be a good new language for you to 
 1. 开发巨型软件（代码量大或者工程团队大）的人，开发高效（高并发、高可靠、高速度、高开发速度）软件的人
 2. 想给自己充电，提升知识水平，并在人才市场中更有价值的人
 3. 你爱学习！学习使你快乐！
+
+
+## 视频
+### Beginner Level
+[YouTube](https://www.youtube.com/playlist?list=PLwY2GJhAPWRcJmj6k4XSkMm2TzlpzZaTU)  
+[Bilibili](http://space.bilibili.com/16696495/channel/detail?cid=58096)
