@@ -24,6 +24,7 @@ func Test4(t *testing.T) {
 // https://tour.golang.org/basics/6           English
 func Test6(t *testing.T) {
 
+	// Implement this function such that it returns the length of each parameter in the same order.
 	strLen := func(str1, str2, str3 string) (int, int, int) {
 		return len(str1), len(str2), len(str3)
 	}
