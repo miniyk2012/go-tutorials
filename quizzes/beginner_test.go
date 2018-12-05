@@ -19,3 +19,17 @@ func Test4(t *testing.T) {
 		t.FailNow()
 	}
 }
+
+// https://go-tour-zh-tw.appspot.com/basics/6 中文
+// https://tour.golang.org/basics/6           English
+func Test6(t *testing.T) {
+
+	strLen := func(str1, str2, str3 string) (int, int, int) {
+		// ?
+	}
+
+	l1, l2, l3 := strLen("a", "ab", "abc")
+	if l1 != 1 || l2 != 2 || l3 != 3 {
+		t.FailNow()
+	}
+}
