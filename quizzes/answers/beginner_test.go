@@ -34,3 +34,32 @@ func Test6(t *testing.T) {
 		t.FailNow()
 	}
 }
+
+// http://go-tour-zh.appspot.com/basics/13 中文
+// https://tour.golang.org/basics/13       English
+func Test13(t *testing.T) {
+
+	// Find the quotient, reminder and module of x / y.
+	div := func(x, y int) (quotient float64, reminder, modulo int) {
+		quotient = float64(x) / float64(y)
+		reminder = x % y
+		if reminder < 0 {
+			modulo = reminder + y
+			return
+		}
+		modulo = reminder
+		return
+	}
+
+	q, r, m := div(-21, 4)
+	if q != -5.25 {
+		t.FailNow()
+	}
+	if r != -1 {
+		t.FailNow()
+	}
+	if m != 3 {
+		t.FailNow()
+	}
+
+}
