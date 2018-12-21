@@ -21,4 +21,3 @@ var input string = readInput()
 lexer := lexer.New(input)
 token := lexer.NextToken() // token is either a valid token or the special EOF or INVALID
 ```
-
