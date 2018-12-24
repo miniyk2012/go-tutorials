@@ -1,0 +1,15 @@
+type Mutation {
+    question: QuestionMutation!
+}
+
+type QuestionMutation {
+    create(
+        title: String!,
+        content: String!
+    ): Question!
+    update(
+        id: ID!,
+        title: String,
+        content: String
+    ): Question!
+}

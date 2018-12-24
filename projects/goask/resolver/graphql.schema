@@ -1,30 +1,4 @@
 schema {
     query: Query
+    mutation: Mutation
 }
-
-type Query {
-    questions: [Question!]!
-}
-
-interface Post {
-    title: String!
-    content: String!
-}
-
-type Question implements Post {
-    title: String!
-    content: String!
-    # comments: [Comment]
-    # answers: [Answer]
-}
-
-# type Comment implements Post {
-#     title: String
-#     content: String    
-# }
-
-# type Answer implements Post {
-#     title: String
-#     content: String
-#     comments: [Comment] 
-# }
