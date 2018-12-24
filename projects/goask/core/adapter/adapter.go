@@ -6,9 +6,13 @@ import (
 )
 
 type Data interface {
+	// Question
 	Questions(search *string) ([]entity.Question, error)
+	QuestionByID(ID int64) (entity.Question, error)
 	CreateQuestion(post entity.Question) (entity.Question, error)
 	UpdateQuestion(post entity.QuestionUpdate) (entity.Question, error)
+	// Answer
+	AnswersOfQuestion(QuestionID int64) []entity.Answer
 	CreateAnswer(answer entity.AnswerCreation) (entity.Answer, error)
 }
 

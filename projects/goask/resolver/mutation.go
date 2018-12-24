@@ -33,7 +33,7 @@ func (m QuestionMutation) Create(args struct{ Title, Content string }) (Question
 		},
 	)
 
-	return (*Question).one(nil, q), err
+	return QuestionOne(q, m.Data), err
 }
 
 // Update updates a question
@@ -43,16 +43,14 @@ func (m QuestionMutation) Update(input QuestionInput) (Question, error) {
 	if err != nil {
 		log.Printf("%+v\n", err)
 	}
-	return (*Question).one(nil, q), err
+	return QuestionOne(q, m.Data), err
 }
 
 type AnswerMutation struct {
 	Data adapter.Data
 }
 
-
-func (m AnswerMutation) Create(args struct{QuestionID int32; Content string}) (Answer, error){
-
+func (m AnswerMutation) Create(args AnswerCreationInput) (Answer, error) {
 	answerCreation := entity.AnswerCreation{}
 	answerCreation.Content = args.Content
 	answerCreation.QuestionID = int64(args.QuestionID)
@@ -60,5 +58,5 @@ func (m AnswerMutation) Create(args struct{QuestionID int32; Content string}) (A
 	if err != nil {
 		log.Println(err) // todo: inject a logger
 	}
-	return Answer{entity: answer}, err
+	return Answer{entity: answer, data: m.Data}, err
 }

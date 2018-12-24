@@ -1,0 +1,17 @@
+interface Post {
+    id: Int!
+    content: String!
+}
+
+type Question implements Post {
+    id: Int!
+    title: String!
+    content: String!
+    answers: [Answer!]!
+}
+
+type Answer implements Post {
+    id: Int!
+    content: String!
+    question: Question!
+}

@@ -28,6 +28,15 @@ func (d *Data) Questions(search *string) ([]entity.Question, error) {
 	return ret, nil
 }
 
+func (d *Data) QuestionByID(ID int64) (entity.Question, error) {
+	for _, q := range d.questions {
+		if q.ID == ID {
+			return q, nil
+		}
+	}
+	return entity.Question{}, errors.WithStack(&adapter.ErrQuestionNotFound{ID: ID})
+}
+
 func (d *Data) CreateQuestion(q entity.Question) (entity.Question, error) {
 	q.ID = int64(len(d.questions) + 1)
 	d.questions = append(d.questions, q)
@@ -53,11 +62,19 @@ func (d *Data) UpdateQuestion(p entity.QuestionUpdate) (entity.Question, error) 
 	return entity.Question{}, errors.WithStack(&adapter.ErrQuestionNotFound{ID: p.ID})
 }
 
+func (d *Data) AnswersOfQuestion(QuestionID int64) (ret []entity.Answer) {
+	for _, answer := range d.answers {
+		if answer.QuestionID == QuestionID {
+			ret = append(ret, answer)
+		}
+	}
+	return
+}
+
 func (d *Data) CreateAnswer(answerCreation entity.AnswerCreation) (entity.Answer, error) {
 	for _, q := range d.questions {
 		if q.ID == answerCreation.QuestionID {
 			answer := d.answers.Add(answerCreation)
-			q.Answers = append(q.Answers, answer)
 			return answer, nil
 		}
 	}
@@ -72,8 +89,19 @@ type Answers []entity.Answer
 
 func (a *Answers) Add(answer entity.AnswerCreation) entity.Answer {
 	*a = append(*a, entity.Answer{
-		ID: int64(len(*a) + 1),
+		ID:      int64(len(*a) + 1),
 		Content: answer.Content,
+		QuestionID: answer.QuestionID,
 	})
-	return (*a)[len(*a) - 1]
+	return (*a)[len(*a)-1]
+}
+
+func (a *Answers) OfQuestion(questionID int64) Answers {
+	var ans Answers
+	for _, answer := range *a {
+		if answer.QuestionID == questionID {
+			ans = append(ans, answer)
+		}
+	}
+	return ans
 }

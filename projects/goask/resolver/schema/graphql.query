@@ -3,27 +3,3 @@ type Query {
         search: String
     ): [Question!]!
 }
-
-interface Post {
-    id: Int!
-    content: String!
-}
-
-type Question implements Post {
-    id: Int!
-    title: String!
-    content: String!
-    # comments: [Comment]
-    # answers: [Answer]
-}
-
-# type Comment implements Post {
-#     title: String
-#     content: String    
-# }
-
-type Answer implements Post {
-    id: Int!
-    content: String!
-    question: Question!
-}

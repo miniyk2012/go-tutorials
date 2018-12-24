@@ -1,8 +1,9 @@
 package resolver
 
 import (
-	"github.com/pkg/errors"
 	"goask/core/adapter"
+
+	"github.com/pkg/errors"
 )
 
 type Query struct {
@@ -16,10 +17,10 @@ func (q *Query) check() error {
 	return nil
 }
 
-func (q *Query) Questions(args struct{Search *string}) ([]Question, error) {
+func (q *Query) Questions(args struct{ Search *string }) ([]Question, error) {
 	if err := q.check(); err != nil {
 		return nil, err
 	}
 	questions, err := q.Data.Questions(args.Search)
-	return (*Question).all(nil, questions), err
+	return QuestionAll(questions, q.Data), err
 }
