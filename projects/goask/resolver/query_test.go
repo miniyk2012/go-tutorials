@@ -18,7 +18,7 @@ func TestQuery_Questions(t *testing.T) {
 	}
 
 	// Get all Questions
-	questions, err := query.Questions()
+	questions, err := query.Questions(struct{Search *string}{nil})
 	require.NoError(t, err)
 	require.Equal(t, len(questions), 0)
 
@@ -45,7 +45,7 @@ func TestQuery_Questions(t *testing.T) {
 	require.Equal(t, qResolver.Content(), "content")
 
 	// Get all Questions
-	questions, err = query.Questions()
+	questions, err = query.Questions(struct{Search *string}{nil})
 	require.NoError(t, err)
 	require.Equal(t, len(questions), 1)
 }

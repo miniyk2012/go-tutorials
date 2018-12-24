@@ -1,4 +1,4 @@
-package resolver
+package graphqlhelper
 
 // todo: move this file into its own pkg, as a lib. Not part of the application.
 

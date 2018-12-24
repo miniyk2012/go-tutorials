@@ -5,6 +5,6 @@ import (
 )
 
 type QuestionInput struct {
-	entity.PostUpdate
+	entity.QuestionUpdate
 	ID int32
 }

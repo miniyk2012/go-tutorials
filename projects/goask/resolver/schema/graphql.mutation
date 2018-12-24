@@ -1,5 +1,6 @@
 type Mutation {
     question: QuestionMutation!
+    answer: AnswerMutation!
 }
 
 type QuestionMutation {
@@ -12,4 +13,11 @@ type QuestionMutation {
         title: String,
         content: String
     ): Question!
+}
+
+type AnswerMutation {
+    create(
+        questionID: Int!
+        content: String!
+    ): Answer!
 }

@@ -6,9 +6,10 @@ import (
 )
 
 type Data interface {
-	Questions() ([]entity.Question, error)
-	CreateQuestion(post entity.Post) (entity.Question, error)
-	UpdateQuestion(post entity.PostUpdate) (entity.Question, error)
+	Questions(search *string) ([]entity.Question, error)
+	CreateQuestion(post entity.Question) (entity.Question, error)
+	UpdateQuestion(post entity.QuestionUpdate) (entity.Question, error)
+	CreateAnswer(answer entity.AnswerCreation) (entity.Answer, error)
 }
 
 type ErrQuestionNotFound struct {

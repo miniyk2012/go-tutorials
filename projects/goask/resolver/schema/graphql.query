@@ -1,10 +1,11 @@
 type Query {
-    questions: [Question!]!
+    questions(
+        search: String
+    ): [Question!]!
 }
 
 interface Post {
     id: Int!
-    title: String!
     content: String!
 }
 
@@ -21,8 +22,8 @@ type Question implements Post {
 #     content: String    
 # }
 
-# type Answer implements Post {
-#     title: String
-#     content: String
-#     comments: [Comment] 
-# }
+type Answer implements Post {
+    id: Int!
+    content: String!
+    question: Question!
+}
