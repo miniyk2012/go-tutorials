@@ -7,7 +7,7 @@ import (
 
 // Question is the GraphQL resolver for Question type.
 type Question struct {
-	data   adapter.Data   // todo: let's think about the scope control here
+	data   adapter.Data // todo: let's think about the scope control here
 	entity entity.Question
 }
 
@@ -30,7 +30,7 @@ func (q Question) Answers() []Answer {
 
 // Answer is the GraphQL resolver for Answer type.
 type Answer struct {
-	data adapter.Data
+	data   adapter.Data
 	entity entity.Answer
 }
 
@@ -50,7 +50,7 @@ func (a Answer) Question() (Question, error) {
 func QuestionOne(question entity.Question, data adapter.Data) Question {
 	return Question{
 		entity: question,
-		data: data,
+		data:   data,
 	}
 }
 

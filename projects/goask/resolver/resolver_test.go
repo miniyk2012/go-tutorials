@@ -65,4 +65,3 @@ func TestResolver(t *testing.T) {
 		require.Equal(t, "This is an answer", answers[0].Content())
 	})
 }
-

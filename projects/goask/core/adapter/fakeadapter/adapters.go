@@ -89,8 +89,8 @@ type Answers []entity.Answer
 
 func (a *Answers) Add(answer entity.AnswerCreation) entity.Answer {
 	*a = append(*a, entity.Answer{
-		ID:      int64(len(*a) + 1),
-		Content: answer.Content,
+		ID:         int64(len(*a) + 1),
+		Content:    answer.Content,
 		QuestionID: answer.QuestionID,
 	})
 	return (*a)[len(*a)-1]

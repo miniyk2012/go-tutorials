@@ -3,7 +3,7 @@ package resolver
 import (
 	"goask/core/adapter"
 	"goask/core/entity"
-	"log"
+	"goask/log"
 )
 
 type Mutation struct {
@@ -11,52 +11,75 @@ type Mutation struct {
 }
 
 func (m *Mutation) Question() (QuestionMutation, error) {
-	return QuestionMutation{Data: m.Data}, nil
+	return QuestionMutation{
+		stdResolver: stdResolver{
+			data: m.Data,
+			log: &log.Logger{},
+		},
+	}, nil
 }
 
 func (m *Mutation) Answer() (AnswerMutation, error) {
-	return AnswerMutation{Data: m.Data}, nil
+	return AnswerMutation{stdResolver: stdResolver{
+		data: m.Data,
+		log: &log.Logger{},
+	}}, nil
 }
 
 // QuestionMutation resolves all mutations of questions.
 type QuestionMutation struct {
-	Data adapter.Data
+	stdResolver
 }
 
 // Create creates a question.
 func (m QuestionMutation) Create(args struct{ Title, Content string }) (Question, error) {
+	if err := m.check(); err != nil {
+		return Question{}, err
+	}
 
-	q, err := m.Data.CreateQuestion(
+	q, err := m.data.CreateQuestion(
 		entity.Question{
 			Title:   args.Title,
 			Content: args.Content,
 		},
 	)
 
-	return QuestionOne(q, m.Data), err
+	return QuestionOne(q, m.data), err
 }
 
 // Update updates a question
 func (m QuestionMutation) Update(input QuestionInput) (Question, error) {
-	input.QuestionUpdate.ID = int64(input.ID)
-	q, err := m.Data.UpdateQuestion(input.QuestionUpdate)
-	if err != nil {
-		log.Printf("%+v\n", err)
+	if err := m.check(); err != nil {
+		return Question{}, err
 	}
-	return QuestionOne(q, m.Data), err
+
+	input.QuestionUpdate.ID = int64(input.ID)
+	q, err := m.data.UpdateQuestion(input.QuestionUpdate)
+	if err != nil {
+		m.log.Error(err)
+	}
+	return QuestionOne(q, m.data), err
 }
 
 type AnswerMutation struct {
-	Data adapter.Data
+	stdResolver
 }
 
 func (m AnswerMutation) Create(args AnswerCreationInput) (Answer, error) {
+	if err := m.check(); err != nil {
+		return Answer{}, err
+	}
+
 	answerCreation := entity.AnswerCreation{}
 	answerCreation.Content = args.Content
 	answerCreation.QuestionID = int64(args.QuestionID)
-	answer, err := m.Data.CreateAnswer(answerCreation)
+	answer, err := m.data.CreateAnswer(answerCreation)
 	if err != nil {
-		log.Println(err) // todo: inject a logger
+		m.log.Error(err)
 	}
-	return Answer{entity: answer, data: m.Data}, err
+	return Answer{entity: answer, data: m.data}, err
+}
+
+type logger interface {
+	Error(err error)
 }
