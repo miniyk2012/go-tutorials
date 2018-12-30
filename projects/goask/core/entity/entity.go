@@ -20,11 +20,6 @@ type Answer struct {
 	AuthorID   int64 // The ID of the user who created it.
 }
 
-type AnswerCreation struct {
-	QuestionID int64
-	Content    string
-}
-
 type User struct {
 	ID   int64
 	Name string

@@ -82,14 +82,14 @@ func (d *Data) AnswersOfQuestion(QuestionID int64) (ret []entity.Answer) {
 	return
 }
 
-func (d *Data) CreateAnswer(answerCreation entity.AnswerCreation) (entity.Answer, error) {
+func (d *Data) CreateAnswer(QuestionID int64, Content string, AuthorID int64) (entity.Answer, error) {
 	for _, q := range d.questions {
-		if q.ID == answerCreation.QuestionID {
-			answer := d.answers.Add(answerCreation)
+		if q.ID == QuestionID {
+			answer := d.answers.Add(QuestionID, Content, AuthorID)
 			return answer, nil
 		}
 	}
-	return entity.Answer{}, errors.WithStack(&adapter.ErrQuestionNotFound{ID: answerCreation.QuestionID})
+	return entity.Answer{}, errors.WithStack(&adapter.ErrQuestionNotFound{ID: QuestionID})
 }
 
 func (d *Data) UserByID(ID int64) (entity.User, error) {
@@ -117,11 +117,12 @@ func match(s1, s2 string) bool {
 
 type Answers []entity.Answer
 
-func (a *Answers) Add(answer entity.AnswerCreation) entity.Answer {
+func (a *Answers) Add(QuestionID int64, Content string, AuthorID int64) entity.Answer {
 	*a = append(*a, entity.Answer{
 		ID:         int64(len(*a) + 1),
-		Content:    answer.Content,
-		QuestionID: answer.QuestionID,
+		Content:    Content,
+		QuestionID: QuestionID,
+		AuthorID: AuthorID,
 	})
 	return (*a)[len(*a)-1]
 }

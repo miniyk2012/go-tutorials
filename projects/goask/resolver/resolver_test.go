@@ -58,7 +58,7 @@ func TestResolver(t *testing.T) {
 	require.Equal(t, len(questions), 1)
 
 	t.Run("interact with answers", func(t *testing.T) {
-		answerMutation, err := mutation.Answer()
+		answerMutation, err := mutation.Answer(struct{ UserID int32 }{UserID: int32(1)})
 		require.NoError(t, err)
 
 		answer, err := answerMutation.Create(AnswerCreationInput{QuestionID: 1, Content: "This is an answer"})

@@ -27,11 +27,21 @@ func (m *Mutation) Question(args struct{ UserID int32 }) (QuestionMutation, erro
 	}, nil
 }
 
-func (m *Mutation) Answer() (AnswerMutation, error) {
-	return AnswerMutation{stdResolver: stdResolver{
-		data: m.Data,
-		log:  &log.Logger{},
-	}}, nil
+func (m *Mutation) Answer(args struct{ UserID int32 }) (AnswerMutation, error) {
+	_, err := m.Data.UserByID(int64(args.UserID))
+	if err != nil {
+		return AnswerMutation{}, err
+	}
+
+	return AnswerMutation{
+		stdResolver: stdResolver{
+			data: m.Data,
+			log:  &log.Logger{},
+		},
+		userSession: UserSession{
+			UserID: int64(args.UserID),
+		},
+	}, nil
 }
 
 func (m *Mutation) User() (UserMutation, error) {
@@ -80,6 +90,7 @@ func (m QuestionMutation) Update(input QuestionInput) (Question, error) {
 
 type AnswerMutation struct {
 	stdResolver
+	userSession UserSession
 }
 
 func (m AnswerMutation) Create(args AnswerCreationInput) (Answer, error) {
@@ -87,10 +98,7 @@ func (m AnswerMutation) Create(args AnswerCreationInput) (Answer, error) {
 		return Answer{}, err
 	}
 
-	answerCreation := entity.AnswerCreation{}
-	answerCreation.Content = args.Content
-	answerCreation.QuestionID = int64(args.QuestionID)
-	answer, err := m.data.CreateAnswer(answerCreation)
+	answer, err := m.data.CreateAnswer(int64(args.QuestionID), args.Content, m.userSession.UserID)
 	if err != nil {
 		m.log.Error(err)
 	}

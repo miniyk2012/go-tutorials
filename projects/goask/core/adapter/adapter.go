@@ -28,7 +28,7 @@ func (e *ErrQuestionNotFound) Error() string {
 
 type AnswerDAO interface {
 	AnswersOfQuestion(QuestionID int64) []entity.Answer
-	CreateAnswer(answer entity.AnswerCreation) (entity.Answer, error)
+	CreateAnswer(QuestionID int64, Content string, AuthorID int64) (entity.Answer, error)
 }
 
 type UserDAO interface {
