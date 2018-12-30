@@ -17,7 +17,14 @@ func TestResolver(t *testing.T) {
 
 	// Mutation
 	mutation := Mutation{Data: data}
-	qMutation, err := mutation.Question()
+	qMutation, err := mutation.Question(struct{ UserID int32 }{UserID: int32(1)})
+	require.EqualError(t, err, "user:1 not found")
+
+	userMutation, err := mutation.User()
+	require.NoError(t, err)
+	userMutation.Create(struct{ Name string }{Name: "Test User"})
+
+	qMutation, err = mutation.Question(struct{ UserID int32 }{UserID: int32(1)})
 	require.NoError(t, err)
 
 	// Get all Questions
@@ -31,6 +38,10 @@ func TestResolver(t *testing.T) {
 	require.Equal(t, qResolver.ID(), int32(1))
 	require.Equal(t, qResolver.Content(), "c")
 	require.Equal(t, qResolver.Title(), "t")
+
+	userResolver, err := qResolver.Author()
+	require.NoError(t, err)
+	require.Equal(t, "Test User", userResolver.Name())
 
 	// Update Question
 	update := QuestionInput{}
@@ -70,9 +81,27 @@ func TestUser(t *testing.T) {
 
 	data := &fakeadapter.Data{}
 	query := Query{Data: data}
-	//mutation := Mutation{Data: data}
+	mutation := Mutation{Data: data}
 
-	user, err := query.User(struct{ ID int32 }{ID: 1})
+	user, err := query.GetUser(struct{ ID int32 }{ID: 1})
 	require.Error(t, err, "user:1 not found")
 	require.Nil(t, user)
+
+	userMutation, err := mutation.User()
+	require.NoError(t, err)
+
+	userResolver, err := userMutation.Create(struct{ Name string }{Name: "A Person"})
+	require.NoError(t, err)
+	require.Equal(t, int32(1), userResolver.ID())
+	require.Equal(t, "A Person", userResolver.Name())
+
+	userResolvers, err := query.Users()
+	require.NoError(t, err)
+	require.Equal(t, 1, len(userResolvers))
+	require.Equal(t, "A Person", userResolvers[0].Name())
+
+	// Questions
+	questionResolvers, err := userResolver.Questions()
+	require.NoError(t, err)
+	require.Empty(t, questionResolvers)
 }

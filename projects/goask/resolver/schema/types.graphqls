@@ -22,5 +22,5 @@ type Answer implements Post {
 type User {
     id: Int!
     name: String!
-#    questions: [Question!]!
+    questions: [Question!]!
 }

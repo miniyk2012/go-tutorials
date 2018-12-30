@@ -35,6 +35,7 @@ type UserDAO interface {
 	UserByID(ID int64) (entity.User, error)
 	Users() ([]entity.User, error)
 	CreateUser(name string) (entity.User, error)
+	QuestionsByUserID(ID int64) ([]entity.Question, error)
 }
 
 type ErrUserNotFound struct {

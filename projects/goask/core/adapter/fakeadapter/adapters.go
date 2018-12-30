@@ -11,7 +11,7 @@ import (
 type Data struct {
 	questions []entity.Question
 	answers   Answers
-	users 	  []entity.User
+	users     []entity.User
 }
 
 var _ adapter.Data = &Data{}
@@ -36,6 +36,16 @@ func (d *Data) QuestionByID(ID int64) (entity.Question, error) {
 		}
 	}
 	return entity.Question{}, errors.WithStack(&adapter.ErrQuestionNotFound{ID: ID})
+}
+
+func (d *Data) QuestionsByUserID(ID int64) ([]entity.Question, error) {
+	var ret []entity.Question
+	for _, q := range d.questions {
+		if q.AuthorID == ID {
+			ret = append(ret, q)
+		}
+	}
+	return ret, nil
 }
 
 func (d *Data) CreateQuestion(q entity.Question) (entity.Question, error) {
@@ -96,7 +106,7 @@ func (d *Data) Users() ([]entity.User, error) {
 }
 
 func (d *Data) CreateUser(name string) (entity.User, error) {
-	user := entity.User{ID: int64(len(d.users)+1), Name: name}
+	user := entity.User{ID: int64(len(d.users) + 1), Name: name}
 	d.users = append(d.users, user)
 	return user, nil
 }

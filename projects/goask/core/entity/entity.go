@@ -1,16 +1,10 @@
 package entity
 
-// Author is the individual who created a Post.
-type Author struct {
-	ID   int64
-	Name string
-}
-
 type Question struct {
-	ID      int64
-	Content string
-	Author  Author
-	Title   string
+	ID       int64
+	Content  string
+	AuthorID int64 // The ID of the user who created it.
+	Title    string
 }
 
 type QuestionUpdate struct {
@@ -23,7 +17,7 @@ type Answer struct {
 	ID         int64
 	QuestionID int64
 	Content    string
-	Author     Author
+	AuthorID   int64 // The ID of the user who created it.
 }
 
 type AnswerCreation struct {

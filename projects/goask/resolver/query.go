@@ -18,7 +18,7 @@ func (q *Query) GetUser(args struct{ ID int32 }) (*User, error) {
 	if err != nil {
 		return nil, err
 	}
-	userResolver := UserOne(user)
+	userResolver := UserOne(user, q.Data)
 	return &userResolver, nil
 }
 
@@ -27,5 +27,5 @@ func (q *Query) Users() ([]User, error) {
 	if err != nil {
 		return nil, err
 	}
-	return UserAll(users), nil
+	return UserAll(users, q.Data), nil
 }

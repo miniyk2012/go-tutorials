@@ -10,11 +10,19 @@ type Mutation struct {
 	Data adapter.Data
 }
 
-func (m *Mutation) Question() (QuestionMutation, error) {
+func (m *Mutation) Question(args struct{ UserID int32 }) (QuestionMutation, error) {
+	_, err := m.Data.UserByID(int64(args.UserID))
+	if err != nil {
+		return QuestionMutation{}, err
+	}
+
 	return QuestionMutation{
 		stdResolver: stdResolver{
 			data: m.Data,
 			log:  &log.Logger{},
+		},
+		userSession: UserSession{
+			UserID: int64(args.UserID),
 		},
 	}, nil
 }
@@ -36,6 +44,7 @@ func (m *Mutation) User() (UserMutation, error) {
 // QuestionMutation resolves all mutations of questions.
 type QuestionMutation struct {
 	stdResolver
+	userSession UserSession
 }
 
 // Create creates a question.
@@ -46,8 +55,9 @@ func (m QuestionMutation) Create(args struct{ Title, Content string }) (Question
 
 	q, err := m.data.CreateQuestion(
 		entity.Question{
-			Title:   args.Title,
-			Content: args.Content,
+			Title:    args.Title,
+			Content:  args.Content,
+			AuthorID: m.userSession.UserID,
 		},
 	)
 
@@ -91,13 +101,13 @@ type UserMutation struct {
 	stdResolver
 }
 
-func (m UserMutation) Create(args struct{Name string}) (User, error) {
+func (m UserMutation) Create(args struct{ Name string }) (User, error) {
 	if err := m.check(); err != nil {
 		return User{}, err
 	}
 
 	user, err := m.data.CreateUser(args.Name)
-	return UserOne(user), err
+	return UserOne(user, m.data), err
 }
 
 type logger interface {

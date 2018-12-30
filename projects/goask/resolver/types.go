@@ -28,8 +28,9 @@ func (q Question) Answers() []Answer {
 	return AnswerAll(answers, q.data)
 }
 
-func (q Question) Author() User {
-	return User{}
+func (q Question) Author() (User, error) {
+	user, err := q.data.UserByID(q.entity.AuthorID)
+	return UserOne(user, q.data), err
 }
 
 // Answer is the GraphQL resolver for Answer type.
@@ -51,8 +52,9 @@ func (a Answer) Question() (Question, error) {
 	return QuestionOne(question, a.data), err
 }
 
-func (a Answer) Author() User {
-	return User{}
+func (a Answer) Author() (User, error) {
+	user, err := a.data.UserByID(a.entity.AuthorID)
+	return UserOne(user, a.data), err
 }
 
 func QuestionOne(question entity.Question, data adapter.Data) Question {
@@ -84,6 +86,7 @@ func AnswerAll(as []entity.Answer, data adapter.Data) []Answer {
 
 type User struct {
 	entity entity.User
+	data   adapter.Data
 }
 
 func (u User) ID() int32 {
@@ -94,14 +97,19 @@ func (u User) Name() string {
 	return u.entity.Name
 }
 
-func UserOne(user entity.User) User {
-	return User{entity: user}
+func (u User) Questions() ([]Question, error) {
+	questions, err := u.data.QuestionsByUserID(u.entity.ID)
+	return QuestionAll(questions, u.data), err
 }
 
-func UserAll(users []entity.User) []User {
+func UserOne(user entity.User, data adapter.Data) User {
+	return User{entity: user, data: data}
+}
+
+func UserAll(users []entity.User, data adapter.Data) []User {
 	ret := make([]User, len(users))
 	for i, user := range users {
-		ret[i] = UserOne(user)
+		ret[i] = UserOne(user, data)
 	}
 	return ret
 }
