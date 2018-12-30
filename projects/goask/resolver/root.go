@@ -1,15 +1,15 @@
 package resolver
 
 import (
-	"github.com/pkg/errors"
 	"goask/core/adapter"
+
+	"github.com/pkg/errors"
 )
 
 type Root struct {
 	Query
 	Mutation
 }
-
 
 type stdResolver struct {
 	data adapter.Data

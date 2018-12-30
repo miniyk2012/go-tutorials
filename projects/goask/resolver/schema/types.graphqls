@@ -1,6 +1,7 @@
 interface Post {
     id: Int!
     content: String!
+    author: User!
 }
 
 type Question implements Post {
@@ -8,10 +9,18 @@ type Question implements Post {
     title: String!
     content: String!
     answers: [Answer!]!
+    author: User!
 }
 
 type Answer implements Post {
     id: Int!
     content: String!
     question: Question!
+    author: User!
+}
+
+type User {
+    id: Int!
+    name: String!
+#    questions: [Question!]!
 }

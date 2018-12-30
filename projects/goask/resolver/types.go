@@ -28,6 +28,10 @@ func (q Question) Answers() []Answer {
 	return AnswerAll(answers, q.data)
 }
 
+func (q Question) Author() User {
+	return User{}
+}
+
 // Answer is the GraphQL resolver for Answer type.
 type Answer struct {
 	data   adapter.Data
@@ -45,6 +49,10 @@ func (a Answer) Content() string {
 func (a Answer) Question() (Question, error) {
 	question, err := a.data.QuestionByID(a.entity.QuestionID)
 	return QuestionOne(question, a.data), err
+}
+
+func (a Answer) Author() User {
+	return User{}
 }
 
 func QuestionOne(question entity.Question, data adapter.Data) Question {
@@ -72,4 +80,28 @@ func AnswerAll(as []entity.Answer, data adapter.Data) []Answer {
 		answers[i] = AnswerOne(a, data)
 	}
 	return answers
+}
+
+type User struct {
+	entity entity.User
+}
+
+func (u User) ID() int32 {
+	return int32(u.entity.ID)
+}
+
+func (u User) Name() string {
+	return u.entity.Name
+}
+
+func UserOne(user entity.User) User {
+	return User{entity: user}
+}
+
+func UserAll(users []entity.User) []User {
+	ret := make([]User, len(users))
+	for i, user := range users {
+		ret[i] = UserOne(user)
+	}
+	return ret
 }

@@ -30,3 +30,8 @@ type AnswerCreation struct {
 	QuestionID int64
 	Content    string
 }
+
+type User struct {
+	ID   int64
+	Name string
+}

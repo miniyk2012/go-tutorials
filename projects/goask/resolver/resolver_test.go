@@ -65,3 +65,14 @@ func TestResolver(t *testing.T) {
 		require.Equal(t, "This is an answer", answers[0].Content())
 	})
 }
+
+func TestUser(t *testing.T) {
+
+	data := &fakeadapter.Data{}
+	query := Query{Data: data}
+	//mutation := Mutation{Data: data}
+
+	user, err := query.User(struct{ ID int32 }{ID: 1})
+	require.Error(t, err, "user:1 not found")
+	require.Nil(t, user)
+}

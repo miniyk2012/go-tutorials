@@ -1,6 +1,7 @@
 type Mutation {
     question: QuestionMutation!
     answer: AnswerMutation!
+    user: UserMutation!
 }
 
 type QuestionMutation {
@@ -20,4 +21,8 @@ type AnswerMutation {
         questionID: Int!
         content: String!
     ): Answer!
+}
+
+type UserMutation {
+    create(name: String!): User!
 }

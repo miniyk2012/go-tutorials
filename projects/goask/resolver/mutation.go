@@ -14,7 +14,7 @@ func (m *Mutation) Question() (QuestionMutation, error) {
 	return QuestionMutation{
 		stdResolver: stdResolver{
 			data: m.Data,
-			log: &log.Logger{},
+			log:  &log.Logger{},
 		},
 	}, nil
 }
@@ -22,7 +22,14 @@ func (m *Mutation) Question() (QuestionMutation, error) {
 func (m *Mutation) Answer() (AnswerMutation, error) {
 	return AnswerMutation{stdResolver: stdResolver{
 		data: m.Data,
-		log: &log.Logger{},
+		log:  &log.Logger{},
+	}}, nil
+}
+
+func (m *Mutation) User() (UserMutation, error) {
+	return UserMutation{stdResolver: stdResolver{
+		data: m.Data,
+		log:  &log.Logger{},
 	}}, nil
 }
 
@@ -78,6 +85,19 @@ func (m AnswerMutation) Create(args AnswerCreationInput) (Answer, error) {
 		m.log.Error(err)
 	}
 	return Answer{entity: answer, data: m.data}, err
+}
+
+type UserMutation struct {
+	stdResolver
+}
+
+func (m UserMutation) Create(args struct{Name string}) (User, error) {
+	if err := m.check(); err != nil {
+		return User{}, err
+	}
+
+	user, err := m.data.CreateUser(args.Name)
+	return UserOne(user), err
 }
 
 type logger interface {
