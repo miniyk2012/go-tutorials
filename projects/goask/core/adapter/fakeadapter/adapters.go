@@ -9,7 +9,7 @@ import (
 )
 
 type Data struct {
-	questions []entity.Question
+	questions Questions
 	answers   Answers
 	users     []entity.User
 }
@@ -92,6 +92,28 @@ func (d *Data) CreateAnswer(QuestionID int64, Content string, AuthorID int64) (e
 	return entity.Answer{}, errors.WithStack(&adapter.ErrQuestionNotFound{ID: QuestionID})
 }
 
+func (d *Data) AcceptAnswer(AnswerID int64, UserID int64) (entity.Answer, error) {
+
+	// Find the question this answer belongs to
+	answer, ok := d.answers.Get(AnswerID)
+	if !ok {
+		return answer, errors.WithStack(&adapter.ErrAnswerNotFound{ID: AnswerID})
+	}
+
+	q, ok := d.questions.Get(answer.QuestionID)
+	if !ok {
+		return answer, errors.WithStack(&adapter.ErrQuestionOfAnswerNotFound{QuestionID: answer.QuestionID, AnswerID: AnswerID})
+	}
+
+	// Find if this user is the author of the question this answer belongs to
+	if q.AuthorID != UserID {
+		return answer, errors.WithStack(&adapter.ErrUserIsNotAuthorOfQuestion{QuestionID: q.ID, UserID: UserID})
+	}
+
+	answer = d.answers.Accept(AnswerID)
+	return answer, nil
+}
+
 func (d *Data) UserByID(ID int64) (entity.User, error) {
 	for _, user := range d.users {
 		if user.ID == ID {
@@ -115,6 +137,17 @@ func match(s1, s2 string) bool {
 	return strings.Contains(s1, s2)
 }
 
+type Questions []entity.Question
+
+func (q *Questions) Get(questionID int64) (entity.Question, bool) {
+	for _, qu := range *q {
+		if qu.ID == questionID {
+			return qu, true
+		}
+	}
+	return entity.Question{}, false
+}
+
 type Answers []entity.Answer
 
 func (a *Answers) Add(QuestionID int64, Content string, AuthorID int64) entity.Answer {
@@ -122,7 +155,7 @@ func (a *Answers) Add(QuestionID int64, Content string, AuthorID int64) entity.A
 		ID:         int64(len(*a) + 1),
 		Content:    Content,
 		QuestionID: QuestionID,
-		AuthorID: AuthorID,
+		AuthorID:   AuthorID,
 	})
 	return (*a)[len(*a)-1]
 }
@@ -135,4 +168,23 @@ func (a *Answers) OfQuestion(questionID int64) Answers {
 		}
 	}
 	return ans
+}
+
+func (a *Answers) Get(answerID int64) (entity.Answer, bool) {
+	for _, an := range *a {
+		if an.ID == answerID {
+			return an, true
+		}
+	}
+	return entity.Answer{}, false
+}
+
+func (a *Answers) Accept(answerID int64) entity.Answer {
+	for i := range *a {
+		if (*a)[i].ID == answerID {
+			(*a)[i].Accepted = true
+			return (*a)[i]
+		}
+	}
+	return entity.Answer{}
 }

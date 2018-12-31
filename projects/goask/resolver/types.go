@@ -57,6 +57,10 @@ func (a Answer) Author() (User, error) {
 	return UserOne(user, a.data), err
 }
 
+func (a Answer) Accepted() bool {
+	return a.entity.Accepted
+}
+
 func QuestionOne(question entity.Question, data adapter.Data) Question {
 	return Question{
 		entity: question,

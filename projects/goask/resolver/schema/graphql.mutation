@@ -21,6 +21,7 @@ type AnswerMutation {
         questionID: Int!
         content: String!
     ): Answer!
+    accept(answerID: Int!): Answer!
 }
 
 type UserMutation {

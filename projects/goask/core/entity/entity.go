@@ -18,6 +18,7 @@ type Answer struct {
 	QuestionID int64
 	Content    string
 	AuthorID   int64 // The ID of the user who created it.
+	Accepted   bool
 }
 
 type User struct {

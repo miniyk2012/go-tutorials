@@ -105,6 +105,15 @@ func (m AnswerMutation) Create(args AnswerCreationInput) (Answer, error) {
 	return Answer{entity: answer, data: m.data}, err
 }
 
+func (m AnswerMutation) Accept(args struct{ AnswerID int32}) (Answer, error) {
+	if err := m.check(); err != nil {
+		return Answer{}, err
+	}
+
+	an, err := m.data.AcceptAnswer(int64(args.AnswerID), m.userSession.UserID)
+	return AnswerOne(an, m.data), err
+}
+
 type UserMutation struct {
 	stdResolver
 }

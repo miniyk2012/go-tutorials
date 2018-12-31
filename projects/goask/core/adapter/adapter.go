@@ -29,6 +29,17 @@ func (e *ErrQuestionNotFound) Error() string {
 type AnswerDAO interface {
 	AnswersOfQuestion(QuestionID int64) []entity.Answer
 	CreateAnswer(QuestionID int64, Content string, AuthorID int64) (entity.Answer, error)
+	AcceptAnswer(AnswerID int64, UserID int64) (entity.Answer, error)
+}
+
+// ErrQuestionOfAnswerNotFound is a data integrity error.
+type ErrQuestionOfAnswerNotFound struct {
+	QuestionID int64
+	AnswerID int64
+}
+
+func (e *ErrQuestionOfAnswerNotFound) Error() string {
+	return fmt.Sprintf("question:%d of answer:%d not found", e.QuestionID, e.AnswerID)
 }
 
 type UserDAO interface {
@@ -38,10 +49,27 @@ type UserDAO interface {
 	QuestionsByUserID(ID int64) ([]entity.Question, error)
 }
 
+type ErrAnswerNotFound struct {
+	ID int64
+}
+
+func (e *ErrAnswerNotFound) Error() string {
+	return fmt.Sprintf("question:%d not found", e.ID)
+}
+
 type ErrUserNotFound struct {
 	ID int64
 }
 
 func (e *ErrUserNotFound) Error() string {
 	return fmt.Sprintf("user:%d not found", e.ID)
+}
+
+type ErrUserIsNotAuthorOfQuestion struct {
+	UserID int64
+	QuestionID int64
+}
+
+func (e *ErrUserIsNotAuthorOfQuestion) Error() string {
+	return fmt.Sprintf("user:%d is no the author of question:%d", e.UserID, e.QuestionID)
 }

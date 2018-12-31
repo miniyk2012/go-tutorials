@@ -17,6 +17,7 @@ type Answer implements Post {
     content: String!
     question: Question!
     author: User!
+    accepted: Boolean!
 }
 
 type User {
