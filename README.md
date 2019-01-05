@@ -19,4 +19,13 @@ If you have any of these goals, then Go could be a good new language for you to 
 ## 视频
 ### Beginner Level
 [YouTube](https://www.youtube.com/playlist?list=PLwY2GJhAPWRcJmj6k4XSkMm2TzlpzZaTU)  
-[Bilibili](http://space.bilibili.com/16696495/channel/detail?cid=58096)
+[Bilibili](http://space.bilibili.com/16696495/channel/detail?cid=58096)  
+[Go得比谁都快0：为什么要学Go？](https://www.bilibili.com/video/av37184314)  
+[Go得比谁都快1：Windows安装](https://www.bilibili.com/video/av37262560)  
+[Go得比谁都快2：Linux安装](https://www.bilibili.com/video/av37327844)  
+[Go得比谁都快3：函数](https://www.bilibili.com/video/av37410473)  
+[Go得比谁都快4：函数多项返回](https://www.bilibili.com/video/av37473712)  
+[Go得比谁都快5：命名返回与类型转换](https://www.bilibili.com/video/av37771458)  
+[Go得比谁都快6：常量](https://www.bilibili.com/video/av37905444)  
+[Go得比谁都快7：For循环](https://www.bilibili.com/video/av39481520)  
+[Go得比谁都快8：For循环2](https://www.bilibili.com/video/av39541057)  
