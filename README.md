@@ -16,7 +16,7 @@ If you have any of these goals, then Go could be a good new language for you to 
 3. 你爱学习！学习使你快乐！
 
 
-## 视频
+## 视频 Videos
 ### Beginner Level
 [YouTube English](https://www.youtube.com/playlist?list=PLwY2GJhAPWRdsMoDghEowU11FFpNHkEYX)  
 [Go Programming Language 0: Why Go?](https://www.youtube.com/watch?v=KDkPMVyB0DY&list=PLwY2GJhAPWRdsMoDghEowU11FFpNHkEYX)  
