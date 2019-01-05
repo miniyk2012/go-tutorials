@@ -15,6 +15,14 @@ If you have any of these goals, then Go could be a good new language for you to 
 2. 想给自己充电，提升知识水平，并在人才市场中更有价值的人
 3. 你爱学习！学习使你快乐！
 
+## 如何使用本教程 How To Use This Tutorial
+First, watch tutorial videos. Then download this repo to follow practices along with videos. [quizzes](quizzes) contains all the quizzes and [projects](projects) contains the demo projects.
+
+If you have questions, open an ISSUE to start the discussion.
+
+首先观看视频教程。然后下载本代码，做其中的练习。 [quizzes](quizzes)包涵了所有的小练习。[projects](projects)包含了实战项目。
+
+如果有问题，开启一个ISSUE来讨论。
 
 ## 视频 Videos
 ### Beginner Level
