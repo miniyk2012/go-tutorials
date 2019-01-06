@@ -1,5 +1,5 @@
 type Mutation {
-    question(userID: Int!): QuestionMutation!
+    questionMutation(userID: Int!): QuestionMutation!
     answer(userID: Int!): AnswerMutation!
     user: UserMutation!
 }

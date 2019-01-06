@@ -10,7 +10,7 @@ type Mutation struct {
 	Data adapter.Data
 }
 
-func (m *Mutation) Question(args struct{ UserID int32 }) (QuestionMutation, error) {
+func (m *Mutation) QuestionMutation(args struct{ UserID int32 }) (QuestionMutation, error) {
 	_, err := m.Data.UserByID(int64(args.UserID))
 	if err != nil {
 		return QuestionMutation{}, err

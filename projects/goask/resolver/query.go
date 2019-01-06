@@ -13,6 +13,12 @@ func (q *Query) Questions(args struct{ Search *string }) ([]Question, error) {
 	return QuestionAll(questions, q.Data), err
 }
 
+func (q *Query) Question(args struct{  ID int32}) (*Question, error) {
+	question, err := q.Data.QuestionByID(int64(args.ID))
+	questionResolver := QuestionOne(question, q.Data)
+	return &questionResolver, err
+}
+
 func (q *Query) GetUser(args struct{ ID int32 }) (*User, error) {
 	user, err := q.Data.UserByID(int64(args.ID))
 	if err != nil {
