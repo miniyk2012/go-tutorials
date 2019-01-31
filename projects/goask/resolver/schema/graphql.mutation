@@ -14,6 +14,9 @@ type QuestionMutation {
         title: String,
         content: String
     ): Question!
+    delete(
+        id: Int!
+    ): Question!
 }
 
 type AnswerMutation {

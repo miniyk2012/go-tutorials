@@ -17,14 +17,14 @@ func TestResolver(t *testing.T) {
 
 	// Mutation
 	mutation := Mutation{Data: data}
-	qMutation, err := mutation.Question(struct{ UserID int32 }{UserID: int32(1)})
+	qMutation, err := mutation.QuestionMutation(struct{ UserID int32 }{UserID: int32(1)})
 	require.EqualError(t, err, "user:1 not found")
 
 	userMutation, err := mutation.User()
 	require.NoError(t, err)
 	userMutation.Create(struct{ Name string }{Name: "Test User"})
 
-	qMutation, err = mutation.Question(struct{ UserID int32 }{UserID: int32(1)})
+	qMutation, err = mutation.QuestionMutation(struct{ UserID int32 }{UserID: int32(1)})
 	require.NoError(t, err)
 
 	// Get all Questions

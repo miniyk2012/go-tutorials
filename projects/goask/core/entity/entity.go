@@ -1,27 +1,33 @@
 package entity
 
 type Question struct {
-	ID       int64
+	ID       ID
 	Content  string
-	AuthorID int64 // The ID of the user who created it.
+	AuthorID ID // The ID of the user who created it.
 	Title    string
 }
 
 type QuestionUpdate struct {
-	ID      int64
+	ID      ID
 	Title   *string
 	Content *string
 }
 
 type Answer struct {
-	ID         int64
-	QuestionID int64
+	ID         ID
+	QuestionID ID
 	Content    string
-	AuthorID   int64 // The ID of the user who created it.
+	AuthorID   ID // The ID of the user who created it.
 	Accepted   bool
 }
 
 type User struct {
-	ID   int64
+	ID   ID
 	Name string
+}
+
+type ID int64
+
+func (id ID) Equal(i int32) bool {
+	return id == ID(i)
 }
