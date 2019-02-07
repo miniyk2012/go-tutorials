@@ -41,6 +41,9 @@ If you have questions, open an ISSUE to start the discussion.
 [Go得比谁都快6：常量](https://www.youtube.com/watch?v=B7aP4eHb59s&index=7&list=PLwY2GJhAPWRcJmj6k4XSkMm2TzlpzZaTU)  
 [Go得比谁都快7：For循环](https://www.youtube.com/watch?v=whwSoBFJImA&index=8&list=PLwY2GJhAPWRcJmj6k4XSkMm2TzlpzZaTU)  
 [Go得比谁都快8：For循环2](https://www.youtube.com/watch?v=MF2QwrgxzJM&index=9&list=PLwY2GJhAPWRcJmj6k4XSkMm2TzlpzZaTU)
+[Go得比谁都快9：If Else](https://www.youtube.com/watch?v=Uk4rAuDGg0k&t=0s&list=PLwY2GJhAPWRcJmj6k4XSkMm2TzlpzZaTU&index=11)  
+[Go得比谁都快10：Switch](https://www.youtube.com/watch?v=xiJTQLT_TBo&t=0s&list=PLwY2GJhAPWRcJmj6k4XSkMm2TzlpzZaTU&index=12)  
+[Go得比谁都快11：defer](https://www.youtube.com/watch?v=cxkLHK15HU0&t=3s&list=PLwY2GJhAPWRcJmj6k4XSkMm2TzlpzZaTU&index=13)  
 
 [Bilibili](http://space.bilibili.com/16696495/channel/detail?cid=58096)  
 [Go得比谁都快0：为什么要学Go？](https://www.bilibili.com/video/av37184314)  
@@ -52,3 +55,8 @@ If you have questions, open an ISSUE to start the discussion.
 [Go得比谁都快6：常量](https://www.bilibili.com/video/av37905444)  
 [Go得比谁都快7：For循环](https://www.bilibili.com/video/av39481520)  
 [Go得比谁都快8：For循环2](https://www.bilibili.com/video/av39541057)  
+[Go得比谁都快9：If Else](http://www.bilibili.com/video/av40035346)  
+[Go得比谁都快10：Switch](http://www.bilibili.com/video/av41008864)  
+[Go得比谁都快11：defer](http://www.bilibili.com/video/av41276388)  
+[]()  
+[]()  
