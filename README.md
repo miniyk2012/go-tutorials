@@ -35,7 +35,7 @@
 [Go得比谁都快9：If Else](http://www.bilibili.com/video/av40035346)  
 [Go得比谁都快10：Switch](http://www.bilibili.com/video/av41008864)  
 [Go得比谁都快11：defer](http://www.bilibili.com/video/av41276388)  
-[]()  
+[Go得比谁都快12：Struct](http://www.bilibili.com/video/av42860303)  
 []()  
 
 ## 如何使用本教程 How To Use This Tutorial
