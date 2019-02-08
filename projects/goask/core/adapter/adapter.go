@@ -13,13 +13,14 @@ type Data interface {
 
 type QuestionDAO interface {
 	Questions(search *string) ([]entity.Question, error)
-	QuestionByID(ID int64) (entity.Question, error)
+	QuestionByID(ID entity.ID) (entity.Question, error)
 	CreateQuestion(post entity.Question) (entity.Question, error)
 	UpdateQuestion(post entity.QuestionUpdate) (entity.Question, error)
+	DeleteQuestion(userID entity.ID, questionID entity.ID) (entity.Question, error)
 }
 
 type ErrQuestionNotFound struct {
-	ID int64
+	ID entity.ID
 }
 
 func (e *ErrQuestionNotFound) Error() string {
@@ -27,15 +28,15 @@ func (e *ErrQuestionNotFound) Error() string {
 }
 
 type AnswerDAO interface {
-	AnswersOfQuestion(QuestionID int64) []entity.Answer
-	CreateAnswer(QuestionID int64, Content string, AuthorID int64) (entity.Answer, error)
-	AcceptAnswer(AnswerID int64, UserID int64) (entity.Answer, error)
+	AnswersOfQuestion(QuestionID entity.ID) []entity.Answer
+	CreateAnswer(QuestionID entity.ID, Content string, AuthorID entity.ID) (entity.Answer, error)
+	AcceptAnswer(AnswerID entity.ID, UserID entity.ID) (entity.Answer, error)
 }
 
 // ErrQuestionOfAnswerNotFound is a data integrity error.
 type ErrQuestionOfAnswerNotFound struct {
-	QuestionID int64
-	AnswerID int64
+	QuestionID entity.ID
+	AnswerID   entity.ID
 }
 
 func (e *ErrQuestionOfAnswerNotFound) Error() string {
@@ -43,14 +44,14 @@ func (e *ErrQuestionOfAnswerNotFound) Error() string {
 }
 
 type UserDAO interface {
-	UserByID(ID int64) (entity.User, error)
+	UserByID(ID entity.ID) (entity.User, error)
 	Users() ([]entity.User, error)
 	CreateUser(name string) (entity.User, error)
-	QuestionsByUserID(ID int64) ([]entity.Question, error)
+	QuestionsByUserID(ID entity.ID) ([]entity.Question, error)
 }
 
 type ErrAnswerNotFound struct {
-	ID int64
+	ID entity.ID
 }
 
 func (e *ErrAnswerNotFound) Error() string {
@@ -58,7 +59,7 @@ func (e *ErrAnswerNotFound) Error() string {
 }
 
 type ErrUserNotFound struct {
-	ID int64
+	ID entity.ID
 }
 
 func (e *ErrUserNotFound) Error() string {
@@ -66,10 +67,19 @@ func (e *ErrUserNotFound) Error() string {
 }
 
 type ErrUserIsNotAuthorOfQuestion struct {
-	UserID int64
-	QuestionID int64
+	UserID     entity.ID
+	QuestionID entity.ID
 }
 
 func (e *ErrUserIsNotAuthorOfQuestion) Error() string {
 	return fmt.Sprintf("user:%d is no the author of question:%d", e.UserID, e.QuestionID)
+}
+
+type ErrQuestionMutationDenied struct {
+	UserID     entity.ID
+	QuestionID entity.ID
+}
+
+func (e *ErrQuestionMutationDenied) Error() string {
+	return fmt.Sprintf("user:%d is not authorized to delete question:%d", e.UserID, e.QuestionID)
 }
